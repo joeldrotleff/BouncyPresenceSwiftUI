@@ -1,0 +1,16 @@
+{
+  "originHash": "",
+  "pins": [
+    {
+      "identity": "bouncekit",
+      "kind": "localSourceControl",
+      "location": "../../BounceKit",
+      "state": {
+        "branch": null,
+        "revision": null,
+        "version": null
+      }
+    }
+  ],
+  "version": 3
+}
