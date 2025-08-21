@@ -8,39 +8,34 @@ public struct UserAvatarView: View {
     }
     
     public var body: some View {
-        AsyncImage(url: URL(string: avatarURL)) { phase in
-            switch phase {
-            case .empty:
-                Circle()
-                    .fill(Color.gray.opacity(0.3))
-                    .frame(width: 75, height: 75)
-                    .overlay(
+        Circle()
+            .fill(Color.gray.opacity(0.2))
+            .frame(width: 75, height: 75)
+            .overlay(
+                AsyncImage(url: URL(string: avatarURL)) { phase in
+                    switch phase {
+                    case .empty:
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    )
-            case .success(let image):
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 75, height: 75)
-                    .clipShape(Circle())
-            case .failure(_):
-                Circle()
-                    .fill(Color.gray.opacity(0.3))
-                    .frame(width: 75, height: 75)
-                    .overlay(
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 75, height: 75)
+                            .clipShape(Circle())
+                    case .failure(_):
                         Image(systemName: "person.fill")
                             .foregroundColor(.white)
                             .font(.system(size: 30))
-                    )
-            @unknown default:
-                EmptyView()
-            }
-        }
-        .overlay(
-            Circle()
-                .stroke(Color.white, lineWidth: 3)
-        )
-        .shadow(radius: 5)
+                    @unknown default:
+                        EmptyView()
+                    }
+                }
+            )
+            .overlay(
+                Circle()
+                    .stroke(Color.white, lineWidth: 3)
+            )
+            .shadow(radius: 5)
     }
 }
