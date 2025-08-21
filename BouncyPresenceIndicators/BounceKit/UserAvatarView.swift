@@ -11,7 +11,7 @@ public struct UserAvatarView: View {
         Image(imageName)
             .resizable()
             .aspectRatio(contentMode: .fill)
-            .frame(width: 75, height: 75)
+            .frame(width: 50, height: 50)
             .clipShape(Circle())
             .overlay(
                 Circle()

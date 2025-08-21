@@ -18,7 +18,7 @@ public struct UserPresenceAvatarContainer: View {
 
     public var body: some View {
         VStack {
-            HStack(spacing: 8) {
+            HStack(spacing: 20) {
                 ForEach(viewModel.users) { user in
                     userView(for: user)
                         .transition(.asymmetric(
