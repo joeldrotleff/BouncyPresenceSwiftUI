@@ -1,4 +1,6 @@
-![CleanShot 2025-08-20 at 22 15 00](https://github.com/user-attachments/assets/8e7f1561-8229-458a-867f-5b24f2d6b145)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8e7f1561-8229-458a-867f-5b24f2d6b145" />
+</p>
 
 # Bouncy Presence SwiftUI
 
