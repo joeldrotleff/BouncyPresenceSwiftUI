@@ -1,37 +1,18 @@
 import SwiftUI
 
 public struct UserAvatarView: View {
-    let avatarURL: String
+    let imageName: String
     
-    public init(avatarURL: String) {
-        self.avatarURL = avatarURL
+    public init(imageName: String) {
+        self.imageName = imageName
     }
     
     public var body: some View {
-        Circle()
-            .fill(Color.gray.opacity(0.2))
+        Image(imageName)
+            .resizable()
+            .aspectRatio(contentMode: .fill)
             .frame(width: 75, height: 75)
-            .overlay(
-                AsyncImage(url: URL(string: avatarURL)) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 75, height: 75)
-                            .clipShape(Circle())
-                    case .failure(_):
-                        Image(systemName: "person.fill")
-                            .foregroundColor(.white)
-                            .font(.system(size: 30))
-                    @unknown default:
-                        EmptyView()
-                    }
-                }
-            )
+            .clipShape(Circle())
             .overlay(
                 Circle()
                     .stroke(Color.white, lineWidth: 3)

@@ -2,11 +2,13 @@ import Foundation
 
 public struct User: Identifiable {
     public let id = UUID()
-    public let avatarURL: String
+    public let imageName: String
+    public let name: String
     public let timestamp = Date()
     public let index: Int = 2
     
-    public init(avatarURL: String) {
-        self.avatarURL = avatarURL
+    public init(imageName: String, name: String) {
+        self.imageName = imageName
+        self.name = name
     }
 }

@@ -1,19 +1,5 @@
-import Combine
 import SwiftUI
-
-// MARK: - Codable Models for RandomUser API
-
-struct RandomUserResponse: Codable {
-    let results: [RandomUserResult]
-}
-
-struct RandomUserResult: Codable {
-    let picture: Picture
-}
-
-struct Picture: Codable {
-    let large: String
-}
+import Combine
 
 public struct UserPresenceAvatarContainer: View {
     @StateObject private var viewModel = ViewModel()
@@ -24,11 +10,16 @@ public struct UserPresenceAvatarContainer: View {
         VStack {
             HStack(spacing: 8) {
                 ForEach(viewModel.users) { user in
-                    UserAvatarView(avatarURL: user.avatarURL)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: .top).combined(with: .opacity),
-                            removal: .opacity
-                        ))
+                    VStack(spacing: 4) {
+                        UserAvatarView(imageName: user.imageName)
+                        Text(user.name)
+                            .font(.system(size: 10))
+                            .foregroundColor(.white)
+                    }
+                    .transition(.asymmetric(
+                        insertion: .move(edge: .top).combined(with: .opacity),
+                        removal: .opacity
+                    ))
                 }
             }
             .animation(.spring(response: 0.6, dampingFraction: 0.6, blendDuration: 0.25), value: viewModel.users.count)
@@ -60,9 +51,6 @@ public struct UserPresenceAvatarContainer: View {
 
             Spacer()
         }
-        .task {
-            await viewModel.preloadUsers()
-        }
     }
 }
 
@@ -71,33 +59,19 @@ public extension UserPresenceAvatarContainer {
     class ViewModel: ObservableObject {
         @Published public var users: [User] = []
         @Published public var cachedUsers: [User] = []
-
-        public func preloadUsers() async {
-            // Fetch 10 users and cache them
-            var newCachedUsers: [User] = []
-
-            for _ in 0 ..< 10 {
-                do {
-                    let url = URL(string: "https://randomuser.me/api/")!
-                    let (data, _) = try await URLSession.shared.data(from: url)
-
-                    let response = try JSONDecoder().decode(RandomUserResponse.self, from: data)
-                    if let firstResult = response.results.first {
-                        let newUser = User(avatarURL: firstResult.picture.large)
-                        newCachedUsers.append(newUser)
-                    }
-                } catch {
-                    print("Error fetching user: \(error)")
-                }
+        
+        public init() {
+            // Preload all 10 user images with names
+            let names = ["Alex", "Sam", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Avery", "Quinn", "Drew"]
+            cachedUsers = (1...10).map { index in
+                User(imageName: "user_\(index)", name: names[index - 1])
             }
-
-            cachedUsers = newCachedUsers
         }
 
         public func addUser() {
             guard !cachedUsers.isEmpty else { return }
             let user = cachedUsers.removeFirst()
-            users.append(user)
+            users.insert(user, at: 0)
         }
 
         public func removeUser() {
