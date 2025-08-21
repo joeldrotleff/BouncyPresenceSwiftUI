@@ -1,6 +1,6 @@
 import Foundation
 
-public struct User: Identifiable {
+public struct User: Identifiable, Equatable {
     public let id = UUID()
     public let imageName: String
     public let name: String
