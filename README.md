@@ -1,3 +1,5 @@
+![CleanShot 2025-08-20 at 22 15 00](https://github.com/user-attachments/assets/8e7f1561-8229-458a-867f-5b24f2d6b145)
+
 # Bouncy Presence SwiftUI
 
 A SwiftUI recreation of the delightful bounce-and-shuffle animation when users join a conversation in Marco Polo.
@@ -21,5 +23,3 @@ The SwiftUI version is quite simple:
 ## Running the Project
 
 Open `BouncyPresenceIndicators.xcodeproj` in Xcode and run on any iOS simulator or device. The app comes preloaded with sample users that you can add/remove to see the animation effects.
-
-![CleanShot 2025-08-20 at 22 15 00](https://github.com/user-attachments/assets/8e7f1561-8229-458a-867f-5b24f2d6b145)
